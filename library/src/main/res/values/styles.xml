@@ -1,0 +1,68 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <!-- toolbar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat">
+        <!--toolbar上菜单文字的颜色-->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <!--toolbar菜单折叠的圆点的颜色-->
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <!-- toolbar弹出菜单样式 -->
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat">
+        <item name="android:colorBackground">@color/primary_text</item><!--弹出菜单的背景色-->
+        <item name="android:textColor">@color/white</item><!--弹出菜单的文字颜色-->
+        <!--分割线-->
+        <item name="android:dropDownListViewStyle">@style/AppDropDownListViewStyle</item>
+        <!--菜单弹框位置-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+    <!-- 设置菜单弹框在toolbar下面-->
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
+    </style>
+    <!--弹出菜单分割线-->
+    <style name="AppDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">@color/divider</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="BaseButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@color/primary</item>
+    </style>
+
+    <style name="BaseButton2" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/d16</item>
+        <item name="android:layout_marginLeft">@dimen/d16</item>
+        <item name="android:layout_marginRight">@dimen/d16</item>
+    </style>
+</resources>

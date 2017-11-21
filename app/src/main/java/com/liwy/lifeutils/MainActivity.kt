@@ -7,10 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.liwy.library.base.BaseActivity
 import com.liwy.lifeutils.adapter.MenuAdapter
 import com.liwy.lifeutils.entity.Menu
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     var datas = mutableListOf<Menu>()
     var listView:RecyclerView? = null
     var adapter:MenuAdapter? = null
@@ -18,12 +19,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         context = this
         initView()
     }
 
+    override fun getLayoutResId(): Int {
+        return R.layout.activity_main
+    }
+
     fun initView(){
+        initToolbarTitle(TOOLBAR_MODE_CENTER,"百宝箱")
         listView = findViewById(R.id.list_menu)
         datas = getMenus()
         adapter = MenuAdapter(R.layout.item_menu,datas)
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     fun  getMenus():MutableList<Menu>{
         var menus  = mutableListOf<Menu>()
-        menus.add(Menu("测试1",R.mipmap.ic_launcher))
+        menus.add(Menu("二维码",R.mipmap.ic_launcher))
         menus.add(Menu("测试2",R.mipmap.ic_launcher))
         menus.add(Menu("测试3",R.mipmap.ic_launcher))
         return menus

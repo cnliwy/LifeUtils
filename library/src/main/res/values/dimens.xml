@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="d8">8dp</dimen>
+    <dimen name="d16">16dp</dimen>
+    <dimen name="d24">24dp</dimen>
+    <dimen name="d32">32dp</dimen>
+    <dimen name="d40">40dp</dimen>
+    <dimen name="d48">48dp</dimen>
+    <dimen name="d56">56dp</dimen>
+    <dimen name="d72">72dp</dimen>
+
+    <!--字体尺寸-->
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+</resources>
