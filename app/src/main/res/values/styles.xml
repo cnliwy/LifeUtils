@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="content_style_13sp_50alpha">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:textColor">@color/half_black</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <style name="expand_button_13dp_blue">
+        <item name="android:textSize">13sp</item>
+        <!--<item name="android:textColor">@drawable/textbutton_font_style</item>-->
+    </style>
+
+    <style name="item_title_true_15sp">
+        <item name="android:textSize">15.0sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+
 </resources>

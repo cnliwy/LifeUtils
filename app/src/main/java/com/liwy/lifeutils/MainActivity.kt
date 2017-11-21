@@ -2,7 +2,6 @@ package com.liwy.lifeutils
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
@@ -38,6 +37,7 @@ class MainActivity : BaseActivity() {
             var menu = datas.get(position)
             println(menu.name)
             Toast.makeText(context,menu.name,Toast.LENGTH_SHORT).show()
+            if (menu.name.equals("程序管理"))turnToActivity(AppManageActivity::class.java)
         }
         listView?.adapter = adapter
     }
@@ -45,7 +45,7 @@ class MainActivity : BaseActivity() {
     fun  getMenus():MutableList<Menu>{
         var menus  = mutableListOf<Menu>()
         menus.add(Menu("二维码",R.mipmap.ic_launcher))
-        menus.add(Menu("测试2",R.mipmap.ic_launcher))
+        menus.add(Menu("程序管理",R.mipmap.ic_launcher))
         menus.add(Menu("测试3",R.mipmap.ic_launcher))
         return menus
     }
