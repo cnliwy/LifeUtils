@@ -34,6 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16.0dip"
                 android:layout_toRightOf="@id/localpackage_item_icon_view"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -74,7 +75,7 @@
 
                         <View
                             android:layout_width="10dp"
-                            android:layout_height="5dp"/>
+                            android:layout_height="5dp" />
 
                         <TextView
                             android:id="@+id/localpackage_item_date_view"
@@ -103,7 +104,7 @@
 
             <ImageView
                 android:id="@+id/app_installed_split_line"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/line_width"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="92.0dip"

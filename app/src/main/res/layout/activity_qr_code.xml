@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.liwy.lifeutils.mvp.QrCodeActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:layout_marginTop="@dimen/d16"
+        android:hint="@string/text_qr_content"
+        android:layout_below="@id/toolbar"/>
+
+    <ImageView
+        android:id="@+id/iv_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_page"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:text="扫码"
+            />
+        <Button
+            android:id="@+id/btn_photo_album"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:text="相册"/>
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:text="生成"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:text="保存"/>
+    </LinearLayout>
+</RelativeLayout>

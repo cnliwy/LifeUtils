@@ -6,9 +6,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.liwy.common.utils.ToastUtils
+import com.liwy.common.utils.ToastUtils.showShortToast
 import com.liwy.library.base.BaseActivity
 import com.liwy.lifeutils.adapter.MenuAdapter
 import com.liwy.lifeutils.entity.Menu
+import com.liwy.lifeutils.mvp.QrCodeActivity
 
 class MainActivity : BaseActivity() {
     var datas = mutableListOf<Menu>()
@@ -36,8 +39,11 @@ class MainActivity : BaseActivity() {
             adapter, view, position ->
             var menu = datas.get(position)
             println(menu.name)
-            Toast.makeText(context,menu.name,Toast.LENGTH_SHORT).show()
-            if (menu.name.equals("程序管理"))turnToActivity(AppManageActivity::class.java)
+            when(menu.name){
+                "程序管理" -> turnToActivity(AppManageActivity::class.java)
+                "二维码" -> turnToActivity(QrCodeActivity::class.java)
+                else -> ToastUtils.showShortToast(menu.name)
+            }
         }
         listView?.adapter = adapter
     }

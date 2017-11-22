@@ -22,16 +22,15 @@ class AppInfoAdapter : BaseQuickAdapter<AppInfo,BaseViewHolder> {
         holder?.setText(R.id.localpackage_item_version_view, appInfo?.versionName)
         holder?.setText(R.id.localpackage_item_date_view, getDate(appInfo!!.firstInstallTime))
 
-        holder?.setOnClickListener(R.id.ll_info, View.OnClickListener {
+        holder?.setOnClickListener(R.id.ll_info, {
             val ll = holder?.getView<LinearLayout>(R.id.uninstall_list_actions_layout)
             ll.visibility = if (ll.isShown) View.GONE else View.VISIBLE
         })
-
-        holder?.setOnClickListener(R.id.localpackage_option_button, View.OnClickListener {
+        holder?.setOnClickListener(R.id.localpackage_option_button, {
             //卸载应用
             AppInfoUtils.uninstallApplication(BaseUtils.getContext(), appInfo?.packageName)
         })
-        holder?.setOnClickListener(R.id.app_management_button, View.OnClickListener {
+        holder?.setOnClickListener(R.id.app_management_button, {
             //应用管理
             AppInfoUtils.showInstalledAppDetails(BaseUtils.getContext(), appInfo?.packageName)
         })
