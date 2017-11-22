@@ -7,6 +7,9 @@ import com.liwy.library.base.BaseActivity
 import com.liwy.lifeutils.adapter.AppInfoAdapter
 import com.liwy.lifeutils.entity.AppInfo
 import com.liwy.lifeutils.utils.AppInfoUtils
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class AppManageActivity : BaseActivity() {
     var listView:RecyclerView? = null
@@ -25,9 +28,27 @@ class AppManageActivity : BaseActivity() {
     fun initView(){
         initToolbarWithBack(TOOLBAR_MODE_CENTER,"应用管理",0,null)
         listView = findViewById(R.id.list_view)
-        datas = AppInfoUtils.getAppInfos(this) as MutableList<AppInfo>
-        adapter = AppInfoAdapter(R.layout.install_record_item,datas)
-        listView?.adapter = adapter
         listView?.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initData()
+    }
+
+    var observable:Observable<MutableList<AppInfo>>? = null
+    /*
+     * 初始化数据
+     */
+    fun initData(){
+        observable = Observable.create<MutableList<AppInfo>> {
+            datas = AppInfoUtils.getAppInfos(this) as MutableList<AppInfo>
+            it.onNext(datas!!)
+            it.onComplete()
+        }
+        observable?.subscribeOn(Schedulers.io())!!.observeOn(AndroidSchedulers.mainThread()).subscribe({
+            adapter = AppInfoAdapter(R.layout.install_record_item,datas)
+            listView?.adapter = adapter
+        })
     }
 }
