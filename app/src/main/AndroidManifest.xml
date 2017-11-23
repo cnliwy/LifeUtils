@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppManageActivity" />
-        <activity android:name=".mvp.QrCodeActivity"></activity>
+        <activity android:name=".mvp.QrCodeActivity" />
+        <activity android:name=".mvp.notebook.NoteBookActivity"></activity>
     </application>
 
 </manifest>

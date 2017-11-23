@@ -23,10 +23,14 @@
         <item name="android:textColor">@color/primary_text</item>
     </style>
 
-    <style name="BaseButtonPosition">
+    <style name="BaseView16dp">
         <item name="android:layout_marginLeft">@dimen/d16</item>
         <item name="android:layout_marginRight">@dimen/d16</item>
-        <item name="android:background">@color/primary_light</item>
+    </style>
+    <style name="BaseButton16dp">
+        <item name="android:layout_marginLeft">@dimen/d16</item>
+        <item name="android:layout_marginRight">@dimen/d16</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

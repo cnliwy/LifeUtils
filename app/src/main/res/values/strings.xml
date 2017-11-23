@@ -4,4 +4,6 @@
     <string name="imagetextbutton_uninstall">卸载</string>
     <string name="install_manage">管理</string>
     <string name="text_qr_content">请输入二维码内容</string>
+    <string name="text_cancel">取消</string>
+    <string name="text_add">添加</string>
 </resources>

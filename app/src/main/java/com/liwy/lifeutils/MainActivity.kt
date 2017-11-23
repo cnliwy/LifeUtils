@@ -12,6 +12,7 @@ import com.liwy.library.base.BaseActivity
 import com.liwy.lifeutils.adapter.MenuAdapter
 import com.liwy.lifeutils.entity.Menu
 import com.liwy.lifeutils.mvp.QrCodeActivity
+import com.liwy.lifeutils.mvp.notebook.NoteBookActivity
 
 class MainActivity : BaseActivity() {
     var datas = mutableListOf<Menu>()
@@ -39,20 +40,22 @@ class MainActivity : BaseActivity() {
             adapter, view, position ->
             var menu = datas.get(position)
             println(menu.name)
-            when(menu.name){
-                "程序管理" -> turnToActivity(AppManageActivity::class.java)
-                "二维码" -> turnToActivity(QrCodeActivity::class.java)
-                else -> ToastUtils.showShortToast(menu.name)
-            }
+            turnToActivity(menu.desActivity)
+//            when(menu.name){
+//                "程序管理" -> turnToActivity(AppManageActivity::class.java)
+//                "二维码" -> turnToActivity(QrCodeActivity::class.java)
+//                "记事本" -> turnToActivity(menu.desActivity)
+//                else -> ToastUtils.showShortToast(menu.name)
+//            }
         }
         listView?.adapter = adapter
     }
 
     fun  getMenus():MutableList<Menu>{
         var menus  = mutableListOf<Menu>()
-        menus.add(Menu("二维码",R.mipmap.ic_launcher))
-        menus.add(Menu("程序管理",R.mipmap.ic_launcher))
-        menus.add(Menu("测试3",R.mipmap.ic_launcher))
+        menus.add(Menu("二维码",R.mipmap.ic_launcher,QrCodeActivity::class.java as Class<Any>))
+        menus.add(Menu("程序管理",R.mipmap.ic_launcher,AppManageActivity::class.java as Class<Any>))
+        menus.add(Menu("记事本",R.mipmap.ic_launcher, NoteBookActivity::class.java as Class<Any>))
         return menus
     }
 }

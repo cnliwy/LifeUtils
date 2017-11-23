@@ -43,7 +43,6 @@ dependencies {
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$baseadapter"
     compile "com.jakewharton:butterknife:$butterknife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
-//    compile "com.journeyapps:zxing-android-embedded:$zxing"
     compile "cn.yipianfengye.android:zxing-library:$zxing"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

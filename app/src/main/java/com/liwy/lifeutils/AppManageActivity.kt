@@ -47,7 +47,7 @@ class AppManageActivity : BaseActivity() {
             it.onComplete()
         }
         observable?.subscribeOn(Schedulers.io())!!.observeOn(AndroidSchedulers.mainThread()).subscribe({
-            adapter = AppInfoAdapter(R.layout.install_record_item,datas)
+            adapter = AppInfoAdapter(R.layout.item_install_record,datas)
             listView?.adapter = adapter
         })
     }

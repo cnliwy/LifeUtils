@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.liwy.lifeutils.mvp.notebook.NoteBookActivity">
+    <include layout="@layout/layout_toolbar"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_float"
+            android:layout_gravity="bottom|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/d16"
+            android:layout_marginBottom="@dimen/d16"
+            android:src="@mipmap/ic_launcher_round"
+            app:elevation="@dimen/d8"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>
