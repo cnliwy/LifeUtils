@@ -28,11 +28,11 @@ class AppInfoAdapter : BaseQuickAdapter<AppInfo,BaseViewHolder> {
         })
         holder?.setOnClickListener(R.id.localpackage_option_button, {
             //卸载应用
-            AppInfoUtils.uninstallApplication(BaseUtils.getContext(), appInfo?.packageName)
+            AppInfoUtils.uninstallApplication(BaseUtils.getContext(), appInfo?.packageName!!)
         })
         holder?.setOnClickListener(R.id.app_management_button, {
             //应用管理
-            AppInfoUtils.showInstalledAppDetails(BaseUtils.getContext(), appInfo?.packageName)
+            AppInfoUtils.showInstalledAppDetails(BaseUtils.getContext(), appInfo?.packageName!!)
         })
     }
 

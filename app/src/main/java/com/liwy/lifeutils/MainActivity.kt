@@ -1,18 +1,21 @@
 package com.liwy.lifeutils
 
+import android.app.ActivityManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.liwy.common.utils.BaseUtils
 import com.liwy.common.utils.ToastUtils
-import com.liwy.common.utils.ToastUtils.showShortToast
 import com.liwy.library.base.BaseActivity
 import com.liwy.lifeutils.adapter.MenuAdapter
 import com.liwy.lifeutils.entity.Menu
 import com.liwy.lifeutils.mvp.QrCodeActivity
 import com.liwy.lifeutils.mvp.notebook.NoteBookActivity
+import com.liwy.lifeutils.utils.SystemInfoUtils
+
 
 class MainActivity : BaseActivity() {
     var datas = mutableListOf<Menu>()
@@ -39,14 +42,10 @@ class MainActivity : BaseActivity() {
         adapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener{
             adapter, view, position ->
             var menu = datas.get(position)
-            println(menu.name)
-            turnToActivity(menu.desActivity)
-//            when(menu.name){
-//                "程序管理" -> turnToActivity(AppManageActivity::class.java)
-//                "二维码" -> turnToActivity(QrCodeActivity::class.java)
-//                "记事本" -> turnToActivity(menu.desActivity)
-//                else -> ToastUtils.showShortToast(menu.name)
-//            }
+            when(menu.name){
+                "清理内存" -> clearMemory()
+                else -> turnToActivity(menu.desActivity)
+            }
         }
         listView?.adapter = adapter
     }
@@ -56,6 +55,31 @@ class MainActivity : BaseActivity() {
         menus.add(Menu("二维码",R.mipmap.ic_launcher,QrCodeActivity::class.java as Class<Any>))
         menus.add(Menu("程序管理",R.mipmap.ic_launcher,AppManageActivity::class.java as Class<Any>))
         menus.add(Menu("记事本",R.mipmap.ic_launcher, NoteBookActivity::class.java as Class<Any>))
+        menus.add(Menu("清理内存",R.mipmap.ic_launcher, NoteBookActivity::class.java as Class<Any>))
         return menus
+    }
+
+    fun clearMemory(){
+        val activityManger = context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val list = activityManger
+                .runningAppProcesses
+        if (list != null)
+            for (i in list.indices) {
+                val apinfo = list[i]
+                val pkgList = apinfo.pkgList
+                if (apinfo.importance >= ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    for (j in pkgList.indices) {
+                        if (pkgList[j] == context?.getPackageName()) {
+                            continue
+                        }
+                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.FROYO) {
+                            activityManger.restartPackage(pkgList[j])
+                        } else {
+                            activityManger.killBackgroundProcesses(pkgList[j])
+                        }
+                    }
+                }
+            }
+        ToastUtils.showShortToast("清理完成")
     }
 }

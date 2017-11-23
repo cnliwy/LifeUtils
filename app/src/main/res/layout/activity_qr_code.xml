@@ -38,6 +38,7 @@
             android:background="@color/primary"
             android:textColor="@color/white"
             android:layout_weight="1"
+            android:layout_marginRight="1px"
             android:text="扫码"
             />
         <Button
@@ -47,6 +48,7 @@
             android:layout_weight="1"
             android:background="@color/primary"
             android:textColor="@color/white"
+            android:layout_marginRight="1px"
             android:text="相册"/>
 
         <Button
@@ -56,6 +58,7 @@
             android:layout_weight="1"
             android:background="@color/primary"
             android:textColor="@color/white"
+            android:layout_marginRight="1px"
             android:text="生成"/>
 
         <Button
