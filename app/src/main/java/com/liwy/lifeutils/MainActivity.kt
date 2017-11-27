@@ -48,6 +48,7 @@ class MainActivity : BaseActivity() {
                 "搜索"-> showWebView("https://www.baidu.com/")
                 "奇趣百科"->showWebView("https://www.qiushibaike.com/")
                 "快递查询"->showWebView("http://www.kuaidi100.com/?from=openv")
+                "技术学习"->showWebView("http://www.runoob.com/")
                 else->showFragment(title)
             }
         }else{

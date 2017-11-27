@@ -64,6 +64,12 @@ class ContainerActivity : BaseMvpActivity<ContainerPresenter>(), ContainerView {
                 web?.arguments?.putString("url","http://www.kuaidi100.com/?from=openv")
                 transaction?.add(R.id.layout_container, web)
             }
+            "技术学习"->{
+                var web = WebViewFragment()
+                web?.arguments = Bundle()
+                web?.arguments?.putString("url","http://www.runoob.com/")
+                transaction?.add(R.id.layout_container, web)
+            }
             "程序管理"->{
                 var app = AppManageFragment()
                 transaction?.add(R.id.layout_container, app)
