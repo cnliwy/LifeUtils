@@ -1,37 +1,39 @@
-package com.liwy.lifeutils.mvp
+package com.liwy.lifeutils.mvp.qrcode
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import com.liwy.common.utils.ImageUtil
 import com.liwy.common.utils.ToastUtils
-import com.liwy.library.base.BaseActivity
-import com.liwy.library.base.BaseMvpActivity
+import com.liwy.library.base.BaseMvpFragment
 
 import com.liwy.lifeutils.R
 import com.uuzuche.lib_zxing.activity.CodeUtils
 
 
-class QrCodeActivity : BaseMvpActivity<QrCodePresenter>(), QrCodeView ,View.OnClickListener{
+class QrCodeFragment : BaseMvpFragment<QrCodePresenter>(), QrCodeView,View.OnClickListener{
     var contentEt:EditText? = null
     var scanBtn:Button? = null
     var photoAlbumBtn:Button? = null
     var createBtn:Button? = null
     var saveBtn:Button? = null
     var qrImageView:ImageView? = null
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
     override fun initView() {
-        initToolbarWithBack(BaseActivity.TOOLBAR_MODE_CENTER,"二维码",0,null)
-        contentEt = findViewById(R.id.et_content)
-        qrImageView = findViewById(R.id.iv_qr)
-        scanBtn = findViewById(R.id.btn_scan)
-        photoAlbumBtn = findViewById(R.id.btn_photo_album)
-        createBtn = findViewById(R.id.btn_create)
-        saveBtn = findViewById(R.id.btn_save)
+        contentEt = view?.findViewById(R.id.et_content)
+        qrImageView = view?.findViewById(R.id.iv_qr)
+        scanBtn = view?.findViewById(R.id.btn_scan)
+        photoAlbumBtn = view?.findViewById(R.id.btn_photo_album)
+        createBtn = view?.findViewById(R.id.btn_create)
+        saveBtn = view?.findViewById(R.id.btn_save)
         scanBtn?.setOnClickListener(this)
         photoAlbumBtn?.setOnClickListener(this)
         createBtn?.setOnClickListener(this)
@@ -42,11 +44,11 @@ class QrCodeActivity : BaseMvpActivity<QrCodePresenter>(), QrCodeView ,View.OnCl
 
     override fun initPresenter() {
         mPresenter = QrCodePresenter()
-        mPresenter.init(this, this,this)
+        mPresenter.init(this)
     }
 
     override fun getLayoutResId(): Int {
-        return R.layout.activity_qr_code
+        return R.layout.fragment_qr_code
     }
 
     override fun updateImageView(bitmap: Bitmap?) {
@@ -63,7 +65,7 @@ class QrCodeActivity : BaseMvpActivity<QrCodePresenter>(), QrCodeView ,View.OnCl
                 val bundle = data!!.getExtras() ?: return
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     val result = bundle.getString(CodeUtils.RESULT_STRING)
-                    Toast.makeText(this, "解析结果:" + result!!, Toast.LENGTH_LONG).show()
+                    ToastUtils.showShortToast( "解析结果:" + result!!)
                     contentEt?.setText(result)
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     ToastUtils.showShortToast("解析二维码失败")
@@ -77,7 +79,7 @@ class QrCodeActivity : BaseMvpActivity<QrCodePresenter>(), QrCodeView ,View.OnCl
             if (data != null) {
                 val uri = data.data
                 try {
-                    CodeUtils.analyzeBitmap(ImageUtil.getImageAbsolutePath(this, uri), object : CodeUtils.AnalyzeCallback {
+                    CodeUtils.analyzeBitmap(ImageUtil.getImageAbsolutePath(context, uri), object : CodeUtils.AnalyzeCallback {
                         override fun onAnalyzeSuccess(mBitmap: Bitmap, result: String) {
                             ToastUtils.showShortToast("解析结果:" + result)
                             qrImageView?.setImageBitmap(mBitmap)

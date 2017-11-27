@@ -1,4 +1,4 @@
-package com.liwy.lifeutils.mvp
+package com.liwy.lifeutils.mvp.qrcode
 
 import android.Manifest
 import android.content.Intent
@@ -6,13 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
 import com.liwy.common.utils.*
-import com.liwy.library.base.presenter.BasePresenter
+import com.liwy.library.base.presenter.BaseFragmentPresenter
 import com.liwy.lifeutils.R
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import java.io.File
 
-class QrCodePresenter : BasePresenter<QrCodeView>(){
+class QrCodePresenter : BaseFragmentPresenter<QrCodeView>(){
     //扫描跳转Activity RequestCode
     val REQUEST_CODE = 111
     //选择系统图片RequestCode

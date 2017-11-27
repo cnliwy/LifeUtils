@@ -11,7 +11,7 @@ import butterknife.ButterKnife
 import com.liwy.common.utils.ToastUtils
 import com.liwy.lifeutils.R
 import com.liwy.lifeutils.entity.NoteBook
-import kotlinx.android.synthetic.main.activity_qr_code.*
+import kotlinx.android.synthetic.main.fragment_qr_code.*
 import org.greenrobot.eventbus.EventBus
 import android.view.WindowManager
 

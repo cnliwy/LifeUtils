@@ -1,5 +1,5 @@
 package com.liwy.lifeutils.mvp.notebook
 
-import com.liwy.library.base.presenter.BasePresenter
+import com.liwy.library.base.presenter.BaseFragmentPresenter
 
-class NoteBookPresenter : BasePresenter<NoteBookView>()
+class NoteBookPresenter : BaseFragmentPresenter<NoteBookView>()

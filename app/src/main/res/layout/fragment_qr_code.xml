@@ -3,11 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.liwy.lifeutils.mvp.QrCodeActivity">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar"/>
+    tools:context="com.liwy.lifeutils.mvp.qrcode.QrCodeFragment">
 
     <EditText
         android:id="@+id/et_content"

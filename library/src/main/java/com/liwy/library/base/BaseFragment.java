@@ -70,6 +70,12 @@ public abstract class BaseFragment extends Fragment {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+    public void turnToActivity(Intent intent){
+        startActivity(intent);
+    }
+    public void turnToActivityWithFinish(Intent intent){
+        startActivity(intent);
+    }
 
     public String getTitle() {
         return title;

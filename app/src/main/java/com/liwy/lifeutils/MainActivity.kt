@@ -1,89 +1,153 @@
 package com.liwy.lifeutils
 
-import android.app.ActivityManager
 import android.content.Context
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.widget.LinearLayout
 import com.liwy.common.utils.ToastUtils
 import com.liwy.library.base.BaseActivity
-import com.liwy.lifeutils.adapter.MenuAdapter
-import com.liwy.lifeutils.entity.Menu
-import com.liwy.lifeutils.mvp.QrCodeActivity
+import com.liwy.lifeutils.mvp.qrcode.QrCodeFragment
+import com.liwy.lifeutils.mvp.appmanage.AppManageFragment
+import com.liwy.lifeutils.mvp.container.ContainerActivity
 import com.liwy.lifeutils.mvp.main.MainFragment
-import com.liwy.lifeutils.mvp.notebook.NoteBookActivity
+import com.liwy.lifeutils.mvp.notebook.NoteBookFragment
+import com.liwy.lifeutils.mvp.webview.WebViewFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 
 class MainActivity : BaseActivity() {
-    var datas = mutableListOf<Menu>()
-    var listView:RecyclerView? = null
-    var adapter:MenuAdapter? = null
     var context:Context? = null
+    var rightLayout:LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
+        EventBus.getDefault().register(this)
         initToolbarTitle(TOOLBAR_MODE_CENTER,"百宝箱")
-//        initView()
+        initFragment()
     }
 
     override fun getLayoutResId(): Int {
         return R.layout.activity_main
     }
 
-    fun loadFragment(){
-        var main:MainFragment = MainFragment()
-
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
-    fun initView(){
-        listView = findViewById(R.id.list_menu)
-        datas = getMenus()
-        adapter = MenuAdapter(R.layout.item_menu,datas)
-        listView?.layoutManager = LinearLayoutManager(this)
-        adapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener{
-            adapter, view, position ->
-            var menu = datas.get(position)
-            when(menu.name){
-                "清理内存" -> clearMemory()
-                else -> turnToActivity(menu.desActivity)
+    @Subscribe
+    fun receiveMessage(title:String){
+        // 多屏模式
+        if (isMutilScreen){
+            when(title){
+                "搜索"-> showWebView("https://www.baidu.com/")
+                "奇趣百科"->showWebView("https://www.qiushibaike.com/")
+                else->showFragment(title)
             }
+        }else{
+            // 单屏模式
+            var intent = Intent(this,ContainerActivity::class.java)
+            intent.putExtra("title",title)
+            startActivity(intent)
         }
-        listView?.adapter = adapter
+
     }
 
-    fun  getMenus():MutableList<Menu>{
-        var menus  = mutableListOf<Menu>()
-        menus.add(Menu("二维码",R.mipmap.ic_launcher,QrCodeActivity::class.java as Class<Any>))
-        menus.add(Menu("程序管理",R.mipmap.ic_launcher,AppManageActivity::class.java as Class<Any>))
-        menus.add(Menu("记事本",R.mipmap.ic_launcher, NoteBookActivity::class.java as Class<Any>))
-        menus.add(Menu("清理内存",R.mipmap.ic_launcher, NoteBookActivity::class.java as Class<Any>))
-        return menus
-    }
+    var isMutilScreen = false;
+    var fragmentManager:FragmentManager? = null
+    var transaction:FragmentTransaction? = null
 
-    fun clearMemory(){
-        val activityManger = context?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val list = activityManger
-                .runningAppProcesses
-        if (list != null)
-            for (i in list.indices) {
-                val apinfo = list[i]
-                val pkgList = apinfo.pkgList
-                if (apinfo.importance >= ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    for (j in pkgList.indices) {
-                        if (pkgList[j] == context?.getPackageName()) {
-                            continue
-                        }
-                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.FROYO) {
-                            activityManger.restartPackage(pkgList[j])
-                        } else {
-                            activityManger.killBackgroundProcesses(pkgList[j])
-                        }
-                    }
-                }
+    var mainFragment:MainFragment? = null
+    var webViewFragment:WebViewFragment? = null
+    var noteBookFragment:NoteBookFragment? = null
+    var qrCodeFragment: QrCodeFragment? = null
+    var appManageFragment:AppManageFragment? = null
+
+    fun showFragment(title: String){
+        transaction = fragmentManager?.beginTransaction()
+        when(title){
+            "记事本"->{
+                hideFragment(transaction!!)
+                if (noteBookFragment == null){
+                    noteBookFragment = NoteBookFragment()
+                    transaction?.add(R.id.fragment_right,noteBookFragment)
+                }else transaction?.show(noteBookFragment)
             }
-        ToastUtils.showShortToast("清理完成")
+            "二维码"->{
+                hideFragment(transaction!!)
+                if (qrCodeFragment == null){
+                    qrCodeFragment = QrCodeFragment()
+                    transaction?.add(R.id.fragment_right,qrCodeFragment)
+                }else transaction?.show(qrCodeFragment)
+            }
+            "程序管理"->{
+                hideFragment(transaction!!)
+                if (appManageFragment == null){
+                    appManageFragment = AppManageFragment()
+                    transaction?.add(R.id.fragment_right,appManageFragment)
+                }else transaction?.show(appManageFragment)
+            }
+            else->ToastUtils.showShortToast("暂未开放")
+        }
+        transaction?.commit()
+    }
+    fun  showWebView(url: String){
+        transaction = fragmentManager?.beginTransaction()
+        hideFragment(transaction!!)
+        if (webViewFragment!=null){
+            webViewFragment?.loadUrl(url)
+            transaction?.show(webViewFragment)
+        }else{
+            webViewFragment = WebViewFragment()
+            webViewFragment?.arguments = Bundle()
+            webViewFragment?.arguments?.putString("url",url)
+            transaction?.add(R.id.fragment_right,webViewFragment)
+        }
+        transaction?.commit()
+    }
+
+    //隐藏所有的fragment
+    fun hideFragment(transaction: FragmentTransaction) {
+        if (appManageFragment != null) {
+            transaction.hide(appManageFragment)
+        }
+        if (qrCodeFragment != null) {
+            transaction.hide(qrCodeFragment)
+        }
+        if (webViewFragment != null) {
+            transaction.hide(webViewFragment)
+        }
+
+        if (noteBookFragment != null) {
+            transaction.hide(noteBookFragment)
+        }
+    }
+
+    fun initFragment(){
+        println("加载fragment------------------>")
+        //步骤一：添加一个FragmentTransaction的实例
+        fragmentManager = supportFragmentManager
+        transaction = fragmentManager?.beginTransaction()
+        //步骤二：用add(方法加上Fragment的对象rightFragment
+        var mainFragment = MainFragment()
+        transaction?.add(R.id.fragment_left, mainFragment)
+        //步骤三：调用commit()方法使得FragmentTransaction实例的改变生效
+
+        //判断右侧布局是否存在
+        rightLayout = findViewById(R.id.fragment_right)
+        if (rightLayout != null){
+            isMutilScreen = true
+            webViewFragment = WebViewFragment()
+            webViewFragment?.arguments = Bundle()
+            webViewFragment?.arguments?.putString("url","https://www.qiushibaike.com/")
+            transaction?.add(R.id.fragment_right,webViewFragment)
+        }else{
+            println("-------------->right为空")
+        }
+        transaction?.commit()
     }
 }
