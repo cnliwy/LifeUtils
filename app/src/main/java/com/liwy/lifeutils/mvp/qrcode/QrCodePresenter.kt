@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
+import android.support.v4.app.Fragment
 import com.liwy.common.utils.*
 import com.liwy.library.base.presenter.BaseFragmentPresenter
 import com.liwy.lifeutils.R
@@ -21,13 +22,15 @@ class QrCodePresenter : BaseFragmentPresenter<QrCodeView>(){
     val REQUEST_CODE_PERMISSION = 120
     // 当前生成的bitmap
     var mBitmap:Bitmap? = null
+    var fragment:Fragment? = null
 
     var permissions:MutableList<String>? = null
     var builder = PermissionUtils.getBuilder()
 
+
     fun startScan(){
         var intent = Intent(BaseUtils.getContext(), CaptureActivity::class.java)
-        mActivity.startActivityForResult(intent, REQUEST_CODE)
+        fragment?.startActivityForResult(intent, REQUEST_CODE)
     }
 
     fun hasPermission():Boolean{
@@ -48,7 +51,7 @@ class QrCodePresenter : BaseFragmentPresenter<QrCodeView>(){
         val intent = Intent()
         intent.action = Intent.ACTION_PICK
         intent.type = "image/*"
-        mActivity.startActivityForResult(intent, REQUEST_IMAGE)
+        fragment?.startActivityForResult(intent, REQUEST_IMAGE)
     }
 
     /**

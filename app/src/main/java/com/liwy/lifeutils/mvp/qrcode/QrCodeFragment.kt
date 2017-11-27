@@ -28,6 +28,7 @@ class QrCodeFragment : BaseMvpFragment<QrCodePresenter>(), QrCodeView,View.OnCli
     }
 
     override fun initView() {
+        mPresenter.fragment = this
         contentEt = view?.findViewById(R.id.et_content)
         qrImageView = view?.findViewById(R.id.iv_qr)
         scanBtn = view?.findViewById(R.id.btn_scan)

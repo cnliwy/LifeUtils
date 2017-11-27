@@ -43,9 +43,11 @@ class MainActivity : BaseActivity() {
     fun receiveMessage(title:String){
         // 多屏模式
         if (isMutilScreen){
+            toolbarTitle?.setText(title)
             when(title){
                 "搜索"-> showWebView("https://www.baidu.com/")
                 "奇趣百科"->showWebView("https://www.qiushibaike.com/")
+                "快递查询"->showWebView("http://www.kuaidi100.com/?from=openv")
                 else->showFragment(title)
             }
         }else{
