@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LifeUtils</string>
+    <string name="appName">LifeUtils</string>
     <string name="app_info_default">正在获取…</string>
     <string name="imagetextbutton_uninstall">卸载</string>
     <string name="install_manage">管理</string>

@@ -13,6 +13,7 @@ import com.liwy.lifeutils.mvp.appmanage.AppManageFragment
 import com.liwy.lifeutils.mvp.container.ContainerActivity
 import com.liwy.lifeutils.mvp.main.MainFragment
 import com.liwy.lifeutils.mvp.notebook.NoteBookFragment
+import com.liwy.lifeutils.mvp.videoscreen.WallpaperFragment
 import com.liwy.lifeutils.mvp.webview.WebViewFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -69,6 +70,7 @@ class MainActivity : BaseActivity() {
     var noteBookFragment:NoteBookFragment? = null
     var qrCodeFragment: QrCodeFragment? = null
     var appManageFragment:AppManageFragment? = null
+    var wallpaperFragment : WallpaperFragment? = null
 
     fun showFragment(title: String){
         transaction = fragmentManager?.beginTransaction()
@@ -93,6 +95,13 @@ class MainActivity : BaseActivity() {
                     appManageFragment = AppManageFragment()
                     transaction?.add(R.id.fragment_right,appManageFragment)
                 }else transaction?.show(appManageFragment)
+            }
+            "动态屏幕"->{
+                hideFragment(transaction!!)
+                if (wallpaperFragment == null){
+                    wallpaperFragment = WallpaperFragment()
+                    transaction?.add(R.id.fragment_right,wallpaperFragment)
+                }else transaction?.show(wallpaperFragment)
             }
             else->ToastUtils.showShortToast("暂未开放")
         }

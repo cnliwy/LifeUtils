@@ -11,6 +11,7 @@ import com.liwy.lifeutils.R
 import com.liwy.lifeutils.mvp.qrcode.QrCodeFragment
 import com.liwy.lifeutils.mvp.appmanage.AppManageFragment
 import com.liwy.lifeutils.mvp.notebook.NoteBookFragment
+import com.liwy.lifeutils.mvp.videoscreen.WallpaperFragment
 import com.liwy.lifeutils.mvp.webview.WebViewFragment
 
 
@@ -73,6 +74,10 @@ class ContainerActivity : BaseMvpActivity<ContainerPresenter>(), ContainerView {
             "程序管理"->{
                 var app = AppManageFragment()
                 transaction?.add(R.id.layout_container, app)
+            }
+            "动态屏幕"->{
+                var screen = WallpaperFragment()
+                transaction?.add(R.id.layout_container,screen)
             }
             else->ToastUtils.showShortToast("此功能尚未开开放")
         }

@@ -68,6 +68,7 @@ class MainFragment : BaseMvpFragment<MainPresenter>(), MainView {
         menus.add(Menu("搜索",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
         menus.add(Menu("快递查询",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
         menus.add(Menu("技术学习",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu("动态屏幕",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
         return menus
     }
 

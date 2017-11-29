@@ -14,12 +14,13 @@ ext {
     stetho = '1.5.0'
     zxing = '2.2'
     loadingdialog = 'v1.0.4'
+    filepicker = '1.5.0'
 }
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.liwy.lifeutils"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -45,6 +46,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$butterknife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
     compile "cn.yipianfengye.android:zxing-library:$zxing"
+    compile "com.leon:lfilepickerlibrary:$filepicker"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
