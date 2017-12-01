@@ -1,7 +1,12 @@
 package com.liwy.lifeutils
 
+import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
@@ -27,6 +32,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         context = this
         EventBus.getDefault().register(this)
+        addShortcus()
         initToolbarTitle(TOOLBAR_MODE_CENTER,"百宝箱")
         initFragment()
     }
@@ -54,11 +60,15 @@ class MainActivity : BaseActivity() {
             }
         }else{
             // 单屏模式
-            var intent = Intent(this,ContainerActivity::class.java)
-            intent.putExtra("title",title)
-            startActivity(intent)
+          startSingleFragment(title)
         }
+    }
 
+    fun startSingleFragment(title:String){
+        // 单屏模式
+        var intent = Intent(this,ContainerActivity::class.java)
+        intent.putExtra("title",title)
+        startActivity(intent)
     }
 
     var isMutilScreen = false;
@@ -161,5 +171,27 @@ class MainActivity : BaseActivity() {
             println("-------------->right为空")
         }
         transaction?.commit()
+    }
+
+    @TargetApi(Build.VERSION_CODES.N_MR1)
+    fun addShortcus(){
+        var shortcutInfos = ArrayList<ShortcutInfo>();
+        var list = listOf("动态屏幕","奇趣百科","快递查询","搜索")
+
+        list.forEach {
+            value->
+                val intent = Intent(this, ContainerActivity::class.java)
+                intent.action = Intent.ACTION_VIEW//不设置会报错
+                intent.putExtra("title", value)
+                val info = ShortcutInfo.Builder(this, value)
+                        .setShortLabel(value)
+                        .setLongLabel(value)
+                        .setIcon(Icon.createWithResource(this, R.drawable.icon_task))
+                        .setIntent(intent)
+                        .build()
+                shortcutInfos.add(info)
+        }
+        var mShortcutManager = getSystemService(ShortcutManager::class.java)
+        mShortcutManager.setDynamicShortcuts(shortcutInfos)
     }
 }
