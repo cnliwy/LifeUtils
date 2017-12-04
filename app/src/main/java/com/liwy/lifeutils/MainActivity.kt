@@ -13,6 +13,14 @@ import android.support.v4.app.FragmentTransaction
 import android.widget.LinearLayout
 import com.liwy.common.utils.ToastUtils
 import com.liwy.library.base.BaseActivity
+import com.liwy.lifeutils.MenuData.Companion.MENU_APP_MANAGE
+import com.liwy.lifeutils.MenuData.Companion.MENU_DYNAMIC_SCREEN
+import com.liwy.lifeutils.MenuData.Companion.MENU_EXPRESS
+import com.liwy.lifeutils.MenuData.Companion.MENU_NOTEBOOK
+import com.liwy.lifeutils.MenuData.Companion.MENU_QRCODE
+import com.liwy.lifeutils.MenuData.Companion.MENU_QSBK
+import com.liwy.lifeutils.MenuData.Companion.MENU_SEARCH
+import com.liwy.lifeutils.MenuData.Companion.MENU_STUDY
 import com.liwy.lifeutils.mvp.qrcode.QrCodeFragment
 import com.liwy.lifeutils.mvp.appmanage.AppManageFragment
 import com.liwy.lifeutils.mvp.container.ContainerActivity
@@ -52,10 +60,10 @@ class MainActivity : BaseActivity() {
         if (isMutilScreen){
             toolbarTitle?.setText(title)
             when(title){
-                "搜索"-> showWebView("https://www.baidu.com/")
-                "奇趣百科"->showWebView("https://www.qiushibaike.com/")
-                "快递查询"->showWebView("http://www.kuaidi100.com/?from=openv")
-                "技术学习"->showWebView("http://www.runoob.com/")
+                MENU_SEARCH-> showWebView("https://www.baidu.com/")
+                MENU_QSBK->showWebView("https://www.qiushibaike.com/")
+                MENU_EXPRESS->showWebView("http://www.kuaidi100.com/?from=openv")
+                MENU_STUDY->showWebView("http://www.runoob.com/")
                 else->showFragment(title)
             }
         }else{
@@ -85,28 +93,28 @@ class MainActivity : BaseActivity() {
     fun showFragment(title: String){
         transaction = fragmentManager?.beginTransaction()
         when(title){
-            "记事本"->{
+            MENU_NOTEBOOK->{
                 hideFragment(transaction!!)
                 if (noteBookFragment == null){
                     noteBookFragment = NoteBookFragment()
                     transaction?.add(R.id.fragment_right,noteBookFragment)
                 }else transaction?.show(noteBookFragment)
             }
-            "二维码"->{
+            MENU_QRCODE->{
                 hideFragment(transaction!!)
                 if (qrCodeFragment == null){
                     qrCodeFragment = QrCodeFragment()
                     transaction?.add(R.id.fragment_right,qrCodeFragment)
                 }else transaction?.show(qrCodeFragment)
             }
-            "程序管理"->{
+            MENU_APP_MANAGE->{
                 hideFragment(transaction!!)
                 if (appManageFragment == null){
                     appManageFragment = AppManageFragment()
                     transaction?.add(R.id.fragment_right,appManageFragment)
                 }else transaction?.show(appManageFragment)
             }
-            "动态屏幕"->{
+            MENU_DYNAMIC_SCREEN->{
                 hideFragment(transaction!!)
                 if (wallpaperFragment == null){
                     wallpaperFragment = WallpaperFragment()
@@ -176,7 +184,7 @@ class MainActivity : BaseActivity() {
     @TargetApi(Build.VERSION_CODES.N_MR1)
     fun addShortcus(){
         var shortcutInfos = ArrayList<ShortcutInfo>();
-        var list = listOf("动态屏幕","奇趣百科","快递查询","搜索")
+        var list = listOf(MENU_DYNAMIC_SCREEN,MENU_QSBK,MENU_EXPRESS,MENU_SEARCH)
 
         list.forEach {
             value->

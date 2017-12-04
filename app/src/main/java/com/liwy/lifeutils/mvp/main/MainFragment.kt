@@ -10,6 +10,15 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.liwy.common.utils.ToastUtils
 import com.liwy.library.base.BaseMvpFragment
+import com.liwy.lifeutils.MenuData.Companion.MENU_APP_MANAGE
+import com.liwy.lifeutils.MenuData.Companion.MENU_DYNAMIC_SCREEN
+import com.liwy.lifeutils.MenuData.Companion.MENU_EXPRESS
+import com.liwy.lifeutils.MenuData.Companion.MENU_MEMORY_CLEAR
+import com.liwy.lifeutils.MenuData.Companion.MENU_NOTEBOOK
+import com.liwy.lifeutils.MenuData.Companion.MENU_QRCODE
+import com.liwy.lifeutils.MenuData.Companion.MENU_QSBK
+import com.liwy.lifeutils.MenuData.Companion.MENU_SEARCH
+import com.liwy.lifeutils.MenuData.Companion.MENU_STUDY
 import com.liwy.lifeutils.R
 import com.liwy.lifeutils.adapter.MenuAdapter
 import com.liwy.lifeutils.entity.Menu
@@ -51,7 +60,7 @@ class MainFragment : BaseMvpFragment<MainPresenter>(), MainView {
             adapter, view, position ->
             var menu = datas.get(position)
             when(menu.name){
-                "清理内存" -> clearMemory()
+                MENU_MEMORY_CLEAR -> clearMemory()
                 else -> EventBus.getDefault().post(menu.name)
             }
         }
@@ -60,15 +69,15 @@ class MainFragment : BaseMvpFragment<MainPresenter>(), MainView {
 
     fun  getMenus():MutableList<Menu>{
         var menus  = mutableListOf<Menu>()
-        menus.add(Menu("二维码",R.mipmap.ic_launcher, QrCodeFragment::class.java as Class<Any>))
-        menus.add(Menu("程序管理",R.mipmap.ic_launcher, AppManageFragment::class.java as Class<Any>))
-        menus.add(Menu("记事本",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("清理内存",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("奇趣百科",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("搜索",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("快递查询",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("技术学习",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
-        menus.add(Menu("动态屏幕",R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_QRCODE,R.mipmap.ic_launcher, QrCodeFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_APP_MANAGE,R.mipmap.ic_launcher, AppManageFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_NOTEBOOK,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_MEMORY_CLEAR,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_QSBK,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_SEARCH,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_EXPRESS,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_STUDY,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
+        menus.add(Menu(MENU_DYNAMIC_SCREEN,R.mipmap.ic_launcher, NoteBookFragment::class.java as Class<Any>))
         return menus
     }
 
