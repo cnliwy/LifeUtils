@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.liwy.common.utils.BaseUtils
+import com.liwy.common.utils.ToastUtils
 import com.liwy.library.base.BaseMvpFragment
 
 import com.liwy.lifeutils.R
@@ -54,5 +56,24 @@ class AppManageFragment : BaseMvpFragment<AppManagePresenter>(), AppManageView {
             adapter = AppInfoAdapter(R.layout.item_install_record,datas)
             listView?.adapter = adapter
         })
+    }
+
+    /**
+     * 卸载全部app（没用）
+     */
+    fun uninstallAll(){
+        ToastUtils.showShortToast("开始卸载应用")
+        datas?.forEach {
+            value->
+            run {
+                try {
+                    print("正在卸载" + value?.packageName!!)
+                    AppInfoUtils.uninstallApplication(BaseUtils.getContext(), value?.packageName!!)
+                } catch (e: Exception) {
+                }
+            }
+
+        }
+
     }
 }

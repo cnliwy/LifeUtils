@@ -40,7 +40,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         context = this
         EventBus.getDefault().register(this)
-        addShortcus()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+            addShortcus()
         initToolbarTitle(TOOLBAR_MODE_CENTER,"百宝箱")
         initFragment()
     }

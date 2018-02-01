@@ -74,6 +74,7 @@ object AppInfoUtils {
     fun uninstallApplication(context: Context, packageName: String) {
         val intent = Intent()
         intent.action = "android.intent.action.DELETE"
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addCategory("android.intent.category.DEFAULT")
         intent.data = Uri.parse("package:" + packageName)
         context.startActivity(intent)
